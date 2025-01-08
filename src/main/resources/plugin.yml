@@ -1,0 +1,12 @@
+name: QPlugin-Test
+version: '1.0-SNAPSHOT'
+main: org.qo.plugin.qPluginTest.QPluginTest
+api-version: '1.21'
+prefix: QPlugin-Test
+load: POSTWORLD
+authors: [ glowingstone124 ]
+description: Only for test purpose.
+commands:
+  firework:
+    description: Create a firework item
+    usage: /<command>
