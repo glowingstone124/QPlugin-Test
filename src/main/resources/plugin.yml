@@ -10,3 +10,6 @@ commands:
   firework:
     description: Create a firework item
     usage: /<command>
+  newyeartnt:
+    description: Create a friendly tnt
+    usage: /<command> give
