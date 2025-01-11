@@ -39,7 +39,7 @@ class FriendlyTnt : CommandExecutor, Listener {
 		val tnt = ItemStack(Material.TNT).add(7)
 		val meta = tnt.itemMeta
 		if (meta != null) {
-			meta.displayName(Component.text("红包").decoration(TextDecoration.BOLD, true))
+			meta.displayName(Component.text("红包").decoration(TextDecoration.BOLD, true).color(NamedTextColor.YELLOW))
 			meta.lore(
 				listOf<Component>(
 					Component.text("新年快乐！说不定里面有什么惊喜...").color(NamedTextColor.YELLOW),
@@ -61,9 +61,11 @@ class FriendlyTnt : CommandExecutor, Listener {
 			val meta = item.itemMeta
 			if (meta != null && meta.persistentDataContainer.has(customTntKey, PersistentDataType.BYTE)) {
 				event.isCancelled = true
+				item.amount -= 1
+				meta.persistentDataContainer.set(customTntKey, PersistentDataType.FLOAT, 0f)
 				val location = player.location
 				val tnt = location.world!!.spawn(location, TNTPrimed::class.java)
-				tnt.fuseTicks = 100
+				tnt.fuseTicks = 20
 				tnt.persistentDataContainer.set(customTntKey, PersistentDataType.BYTE, 1.toByte());
 			}
 		}
@@ -75,9 +77,11 @@ class FriendlyTnt : CommandExecutor, Listener {
 			val tnt = entity as TNTPrimed
 			if (tnt.persistentDataContainer.has(customTntKey, PersistentDataType.BYTE)) {
 				event.isCancelled = true
-				entity.getNearbyEntities(5.0, 5.0, 5.0).forEach { entity ->
-					if (entity is Player) {
-						val player = entity as Player
+				tnt.fireTicks = 0
+
+				entity.getNearbyEntities(5.0, 5.0, 5.0).forEach { nearbyEntity ->
+					if (nearbyEntity is Player) {
+						val player = nearbyEntity as Player
 						val direction = player.location.toVector().subtract(entity.location.toVector()).normalize()
 						player.velocity = direction.multiply(2)
 					}
