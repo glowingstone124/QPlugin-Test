@@ -65,7 +65,7 @@ class FriendlyTnt : CommandExecutor, Listener {
 				meta.persistentDataContainer.set(customTntKey, PersistentDataType.FLOAT, 0f)
 				val location = player.location
 				val tnt = location.world!!.spawn(location, TNTPrimed::class.java)
-				tnt.fuseTicks = 20
+				tnt.fuseTicks = 60
 				tnt.persistentDataContainer.set(customTntKey, PersistentDataType.BYTE, 1.toByte());
 			}
 		}
@@ -78,7 +78,7 @@ class FriendlyTnt : CommandExecutor, Listener {
 			if (tnt.persistentDataContainer.has(customTntKey, PersistentDataType.BYTE)) {
 				event.isCancelled = true
 				tnt.fireTicks = 0
-
+				entity.remove()
 				entity.getNearbyEntities(5.0, 5.0, 5.0).forEach { nearbyEntity ->
 					if (nearbyEntity is Player) {
 						val player = nearbyEntity as Player

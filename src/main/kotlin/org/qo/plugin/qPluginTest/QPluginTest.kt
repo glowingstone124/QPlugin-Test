@@ -14,8 +14,11 @@ class QPluginTest : JavaPlugin() {
 	override fun onEnable() {
 		instance = this
 		Bukkit.getPluginManager().registerEvents(FriendlyTnt(), this)
+		Bukkit.getPluginManager().registerEvents(BuffSnowball(), this)
+
 		this.getCommand("firework")?.setExecutor(Firework())
 		this.getCommand("newyeartnt")?.setExecutor(FriendlyTnt())
+		this.getCommand("perfectSnowball")?.setExecutor(BuffSnowball())
 	}
 
 	override fun onDisable() {

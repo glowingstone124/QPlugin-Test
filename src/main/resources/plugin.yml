@@ -13,3 +13,6 @@ commands:
   newyeartnt:
     description: Create a friendly tnt
     usage: /<command> give
+  perfectSnowball:
+    description: 神奇的雪球
+    usage: /<command> give
